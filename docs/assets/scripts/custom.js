@@ -105,58 +105,33 @@ function prcgProgress2Link(project, run) {
 	return `<div><a href="./prcgProgress2?project=${project}&run=${run}">Link</a></div>`;
 }
 
-function prcgProgress() {
+function projects() {
 	'use strict';
-	var urlParams = new URLSearchParams(window.location.search);
-	if (!urlParams.has('project')) {
-		alert('Missing project ID');
-		return;
-	}
-
-	var projectId = urlParams.get('project');
-	if (!Number.isInteger(parseInt(projectId))) {
-		alert('Unable to get data for Project: ' + projectId);
-		return;
-	}
-
-	$.getJSON("../assets/data/" + projectId + ".json")
+	$.getJSON('https://spreadsheets.google.com/feeds/list/16HhDEP6eG9sxX0yZd0NbLMgNAjafz_ms88lGUytV6EI/1/public/full?alt=json')
 	.done(function(data) {
-		$('#prcgTitle').html('Progress for Project: ' + projectId + '. Last updated at ' + new Date(data.lastUpdated).toLocaleString());
+		var dateString = new Date(Date.parse(data.feed.updated.$t)).toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'long' });
+		$('#projectSummaryTitle').html('Last updated at ' + dateString);
 
 		var dataRows = [];
-		var totalGensCompleted = 0;
 		var percentage = 0.0;
 		var colorClassIndex = '';
-		var totalGensForRun = data.maxClonesPerRun * data.maxGensPerClone;
+		$.each(data.feed,entry, function(index, row) {
+			percentage = row.gsx$progress.$t.replace('%','');
+			dataRows[index] = { project: row.gsx$project.$t, details: prcgProgress2Link(1, 2), progress: getProgressBar(percentage, colorClass[colorClassIndex]), average: row.gsx$dayaveragechange.$t, daysToCompletion: row.gsx$estimateddaystocompletion.$t, daysToCompletionNice: row.gsx$estimatedcompletion.$t, completionDate: gsx$estimatedcompletiondate.$t };
 
-		$.each(data.runs, function(index, run) {
-			var totalGensCompletedForRun = 0;
-			$.each(run.clones, function(index, clone) {
-				var genCount = clone.gen + 1;
-				totalGensCompleted += genCount;
-				totalGensCompletedForRun += genCount;
-			});
-			colorClassIndex = Math.max(0, Math.floor((30 * totalGensCompletedForRun) / totalGensForRun) - 1);
-			percentage =  Math.round((((100 * totalGensCompletedForRun) / totalGensForRun) + Number.EPSILON) * 100) / 100;
-			dataRows[index] = { run: run.run, details: prcgProgress2Link(projectId, run.run), progress: getProgressBar(percentage, colorClass[colorClassIndex]) };
-		});
-		$('#prcgTable').bootstrapTable({data: dataRows, formatNoMatches: function () {return 'No data found.';}});
-		var totalGensForProject = totalGensForRun * data.maxRuns;
-		colorClassIndex = Math.max(0, Math.floor((30 * totalGensCompleted) / totalGensForProject) - 1);
-		percentage = Math.round((((100 * totalGensCompleted) / totalGensForProject) + Number.EPSILON) * 100) / 100;
-		$('#prcgProgressBar').html(getProgressBar(percentage, colorClass[colorClassIndex]));
-		$('#prcgTable').show();
+		$('#projectSummaryTable').bootstrapTable({data: dataRows, formatNoMatches: function () {return 'No data found.';}});
+		$('#projectSummaryTable').show();
 	})
 	.fail(function(data) {
 		// The project specified in the URL does not point to a valid project or there isn't data yet
-		alert('Unable to get data for Project: ' + projectId);
+		alert('Unable to get data.');
 	})
 	.always(function(data) {
 		//alert('always');
 	});
 }
 
-function prcgProgress2() {
+function projectDetails() {
 	'use strict';
 	var urlParams = new URLSearchParams(window.location.search);
 	if (!urlParams.has('project')) {
@@ -236,15 +211,15 @@ function prcgProgress2() {
 
 $(document).ready(function () {
 	'use strict';
-	// PRCG Progress
+	// All projects summary
 	var page = window.location.pathname.split("/").pop();
-	if (page === 'prcgProgress') {
-		prcgProgress();
+	if (page === 'projects') {
+		projects();
 	}
 
-	// PRCG Progress 2
-	if (page === 'prcgProgress2') {
-		prcgProgress2();
+	// Project Details
+	if (page === 'projectDetails') {
+		projectDetails();
 	}
 
 	// Toggle page description visibility
@@ -252,99 +227,12 @@ $(document).ready(function () {
 		e.preventDefault();
 		if ($('#pageDescription').is(':visible')) {
 			$('#pageDescription').hide();
-			$(this).text('Show instructions:');
+			$(this).text('Details');
 		}
 		else {
 			$('#pageDescription').show();
-			$(this).text('Hide instructions:');
+			$(this).text('Hide details');
 		}
 	});
 
-	// Calculate QRB
-	$('#calculateQRB').on('click', function (e) {
-		if($(this).closest('form')[0].checkValidity()) {
-			e.preventDefault();
-
-			var basePoints = $('#projectBasePoints').val();
-			var k = $('#projectBonusFactor').val();
-			var deadlineLength = $('#projectDeadlineLength').val();
-			var wuStartTime = new Date($('#wuStartTime').val());
-			var wuEndTime = new Date($('#wuEndTime').val());
-
-			var wuDuration = (wuEndTime - wuStartTime)/1000/86400;
-			var bonusFactor = Math.max(1, Math.sqrt(deadlineLength * k / wuDuration)) ;
-
-			$('#wuTotal').val(basePoints*bonusFactor);
-		} else {
-			$(this).closest('form')[0].reportValidity();
-		}
-	});
-
-	// Fetch credit for WU
-	$('#fetchCredit').on('click', function (e) {
-		var logLine = $('#logLine').val();
-		if (logLine != null && logLine != '') {
-			//var logLinePattern = /^.*.project:(?<p>\d*) run:(?<r>\d*) clone:(?<c>\d*) gen:(?<g>\d*).*.$/;
-			//var match = logLinePattern.exec(logLine);
-			var match = null;
-			if (match == null) {
-				$('#projectId').val('');
-				$('#runId').val('');
-				$('#cloneId').val('');
-				$('#genId').val('');
-				$('#wuStatus').text('Unable to parse line from log file.');
-				$('#wuStatus').removeClass('good').addClass('bad');
-				$('#wuStatusData').hide();
-				e.preventDefault();
-				return;
-			} else {
-				var p = match.groups.p;
-				var r = match.groups.r;
-				var c = match.groups.c;
-				var g = match.groups.g;
-				
-				$('#projectId').val(p);
-				$('#runId').val(r);
-				$('#cloneId').val(c);
-				$('#genId').val(g);
-			}
-		}
-
-		if($(this).closest('form')[0].checkValidity()) {
-			e.preventDefault();
-
-			var projectId = $('#projectId').val();
-			var runId = $('#runId').val();
-			var cloneId = $('#cloneId').val();
-			var genId = $('#genId').val();
-
-			var creditAPIURL = 'https://api.foldingathome.org/project/' + projectId + '/run/' + runId + '/clone/' + cloneId + '/gen/' + genId + '?callback=?';
-			var wuDescription = 'Project: ' + projectId + ' (Run: ' + runId + '; Clone: ' + cloneId + '; Gen: ' + genId + ')';
-
-			$.getJSON(creditAPIURL)
-			.done(function(data) {
-				$('#wuStatus').text('WU credit check complete for ' + wuDescription + '.');
-				$('#wuStatus').removeClass('bad').addClass('good');
-				$('#wuStatusTable').bootstrapTable({data: data, formatNoMatches: function () {return 'No credits found.';}});
-				$('#wuStatusTable').bootstrapTable('load', data);
-				$('#wuStatusData').show();
-			})
-			.fail(function(data) {
-				$('#wuStatus').text('An error occured when checking WU credits.');
-				$('#wuStatus').removeClass('good').addClass('bad');
-				$('#wuStatusData').hide();
-			})
-			.always(function(data) {
-				$('#fetchCredit').attr('disabled', true);
-				setTimeout(function() {
-					$('#fetchCredit').attr('disabled', false);
-				}, 5000);
-			});
-			$('#wuStatus').text('Checking for WU credits...');
-			$('#wuStatus').removeClass();
-			$('#wuStatusData').hide();
-		} else {
-			$(this).closest('form')[0].reportValidity();
-		}
-	});
 });
