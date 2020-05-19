@@ -116,7 +116,7 @@ function projects() {
 			project = row.gsx$project.$t;
 			progress = row.gsx$progress.$t.replace('%','');
 			colorClassIndex = Math.max(0, Math.floor((30 * progress) / 100) - 1);
-			dataRows[index] = { projectVal: project; project: projectDetailsLink(project, 2), progressVal: progress, progress: getProgressBar(progress, colorClass[colorClassIndex]), average: row.gsx$dayaveragechange.$t, daysToCompletionVal: row.gsx$estimateddaystocompletion.$t, daysToCompletion: row.gsx$estimatedcompletion.$t, completionDate: row.gsx$estimatedcompletiondate.$t };
+			dataRows[index] = { projectVal: project, project: projectDetailsLink(project, 2), progressVal: progress, progress: getProgressBar(progress, colorClass[colorClassIndex]), average: row.gsx$dayaveragechange.$t, daysToCompletionVal: row.gsx$estimateddaystocompletion.$t, daysToCompletion: row.gsx$estimatedcompletion.$t, completionDate: row.gsx$estimatedcompletiondate.$t };
 		});
 		$('#projectSummaryTable').bootstrapTable({data: dataRows, formatNoMatches: function () {return 'No data found.';}});
 		$('#projectSummaryTable').show();
