@@ -115,7 +115,7 @@ function projects() {
 		var dataRows = [];
 		var percentage = 0.0;
 		var colorClassIndex = '';
-		$.each(data.feed,entry, function(index, row) {
+		$.each(data.feed.entry, function(index, row) {
 			percentage = row.gsx$progress.$t.replace('%','');
 			dataRows[index] = { project: row.gsx$project.$t, details: prcgProgress2Link(1, 2), progress: getProgressBar(percentage, colorClass[colorClassIndex]), average: row.gsx$dayaveragechange.$t, daysToCompletion: row.gsx$estimateddaystocompletion.$t, daysToCompletionNice: row.gsx$estimatedcompletion.$t, completionDate: gsx$estimatedcompletiondate.$t };
 		});
