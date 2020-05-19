@@ -9,3 +9,6 @@ body {
 .bad {
 	color: Red;
 }
+.nowrap {
+	white-space: nowrap;
+}
