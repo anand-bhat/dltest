@@ -102,7 +102,7 @@ function prcg2Chart(projectId, runId, maxClonesPerRun, maxGensPerClone, dataSeri
 
 function projectDetailsLink(project, run) {
 	'use strict';
-	return `<div><a href="./prcgProgress2?project=${project}&run=${run}">${project}</a></div>`;
+	return `<div><a href="./projectDetails?project=${project}">${project}</a></div>`;
 }
 
 function projects() {
@@ -113,10 +113,9 @@ function projects() {
 		var progress = 0.0;
 		var colorClassIndex = '';
 		$.each(data.feed.entry, function(index, row) {
-			project = row.gsx$project.$t;
 			progress = row.gsx$progress.$t.replace('%','');
 			colorClassIndex = Math.max(0, Math.floor((30 * progress) / 100) - 1);
-			dataRows[index] = { projectVal: project, project: projectDetailsLink(project, 2), progressVal: progress, progress: getProgressBar(progress, colorClass[colorClassIndex]), average: row.gsx$dayaveragechange.$t, daysToCompletionVal: row.gsx$estimateddaystocompletion.$t, daysToCompletion: row.gsx$estimatedcompletion.$t, completionDate: row.gsx$estimatedcompletiondate.$t };
+			dataRows[index] = { projectVal: row.gsx$project.$t, project: projectDetailsLink(row.gsx$project.$t), progressVal: progress, progress: getProgressBar(progress, colorClass[colorClassIndex]), average: row.gsx$dayaveragechange.$t, daysToCompletionVal: row.gsx$estimateddaystocompletion.$t, daysToCompletion: row.gsx$estimatedcompletion.$t, completionDate: row.gsx$estimatedcompletiondate.$t };
 		});
 		$('#projectSummaryTable').bootstrapTable({data: dataRows, formatNoMatches: function () {return 'No data found.';}});
 		$('#projectSummaryTable').show();
