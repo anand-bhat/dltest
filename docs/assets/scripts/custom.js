@@ -110,7 +110,7 @@ function projects() {
 	$.getJSON('https://spreadsheets.google.com/feeds/list/16HhDEP6eG9sxX0yZd0NbLMgNAjafz_ms88lGUytV6EI/1/public/full?alt=json')
 	.done(function(data) {
 		var dateString = new Date(Date.parse(data.feed.updated.$t)).toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'long' });
-		$('#projectSummaryTitle').html('Last updated at ' + dateString);
+		//$('#projectSummaryTitle').html('Last updated at ' + dateString);
 
 		var dataRows = [];
 		var percentage = 0.0;
