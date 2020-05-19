@@ -109,19 +109,19 @@ function projects() {
 	'use strict';
 	$.getJSON('https://spreadsheets.google.com/feeds/list/16HhDEP6eG9sxX0yZd0NbLMgNAjafz_ms88lGUytV6EI/1/public/full?alt=json')
 	.done(function(data) {
-		var dateString = new Date(Date.parse(data.feed.updated.$t)).toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'long' });
-		//$('#projectSummaryTitle').html('Last updated at ' + dateString);
-
 		var dataRows = [];
 		var percentage = 0.0;
 		var colorClassIndex = '';
 		$.each(data.feed.entry, function(index, row) {
 			percentage = row.gsx$progress.$t.replace('%','');
 			colorClassIndex = Math.max(0, Math.floor((30 * percentage) / 100) - 1);
-			dataRows[index] = { project: row.gsx$project.$t, details: prcgProgress2Link(1, 2), progress: getProgressBar(percentage, colorClass[colorClassIndex]), average: row.gsx$dayaveragechange.$t, daysToCompletion: row.gsx$estimateddaystocompletion.$t, daysToCompletionNice: row.gsx$estimatedcompletion.$t, completionDate: row.gsx$estimatedcompletiondate.$t };
+			dataRows[index] = { project: row.gsx$project.$t, details: prcgProgress2Link(1, 2), progressValue: row.gsx$progress.$t, progress: getProgressBar(percentage, colorClass[colorClassIndex]), average: row.gsx$dayaveragechange.$t, daysToCompletion: row.gsx$estimateddaystocompletion.$t, daysToCompletionNice: row.gsx$estimatedcompletion.$t, completionDate: row.gsx$estimatedcompletiondate.$t };
 		});
 		$('#projectSummaryTable').bootstrapTable({data: dataRows, formatNoMatches: function () {return 'No data found.';}});
 		$('#projectSummaryTable').show();
+
+		var dateString = new Date(Date.parse(data.feed.updated.$t)).toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'long' });
+		$('#projectSummaryTitle').html('Last updated at ' + dateString);
 	})
 	.fail(function(data) {
 		// The project specified in the URL does not point to a valid project or there isn't data yet
