@@ -33,8 +33,7 @@ var colorClass = {
 
 function getProgressBar(percentage, color) {
 	'use strict';
-	var minWidth = Math.max(5, percentage);
-	return `<div class="progress"><div class="progress-bar role="progressbar" style="width: ${minWidth}%; background-color: ${color}" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100">${percentage}%</div></div>`;
+	return `<div class="progress"><div class="progress-bar role="progressbar" style="width: ${percentage}%; background-color: ${color}" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100">${percentage}%</div></div>`;
 }
 
 function prcg2Chart(projectId, runId, maxClonesPerRun, maxGensPerClone, dataSeries) {
