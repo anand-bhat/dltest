@@ -16,3 +16,7 @@ body {
 	color: Black;
 	overflow: visible;
 }
+.progress {
+	height: 2rem;
+	font-size: 1rem;
+}
