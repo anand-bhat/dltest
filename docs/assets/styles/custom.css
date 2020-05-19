@@ -3,12 +3,6 @@ body {
 	margin-left: 10px;
 	margin-right: 10px;
 }
-.good {
-	color: DarkGreen;
-}
-.bad {
-	color: Red;
-}
 .nowrap {
 	white-space: nowrap;
 }
@@ -17,6 +11,6 @@ body {
 	overflow: visible;
 }
 .progress {
-	height: 2rem;
+	height: 1.5rem;
 	font-size: 1rem;
 }
