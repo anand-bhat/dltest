@@ -1,13 +1,13 @@
-title : Folding@home
+title : DreamLab
 
 author :
   name : Anand Bhat
   github : anand-bhat
   twitter : _anandbhat
 
-production_url : https://anand-bhat.github.io/hwtest/
+production_url : https://anand-bhat.github.io/dltest/
 
 JB :
   version : 0.3.0
-  BASE_PATH : https://anand-bhat.github.io/hwtest/
-  ASSET_PATH : https://anand-bhat.github.io/hwtest/assets
+  BASE_PATH : https://anand-bhat.github.io/dltest/
+  ASSET_PATH : https://anand-bhat.github.io/dltest/assets
