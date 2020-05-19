@@ -100,9 +100,9 @@ function prcg2Chart(projectId, runId, maxClonesPerRun, maxGensPerClone, dataSeri
 	return myChart;
 }
 
-function prcgProgress2Link(project, run) {
+function projectDetailsLink(project, run) {
 	'use strict';
-	return `<div><a href="./prcgProgress2?project=${project}&run=${run}">Link</a></div>`;
+	return `<div><a href="./prcgProgress2?project=${project}&run=${run}">${project}</a></div>`;
 }
 
 function projects() {
@@ -110,12 +110,13 @@ function projects() {
 	$.getJSON('https://spreadsheets.google.com/feeds/list/16HhDEP6eG9sxX0yZd0NbLMgNAjafz_ms88lGUytV6EI/1/public/full?alt=json')
 	.done(function(data) {
 		var dataRows = [];
-		var percentage = 0.0;
+		var progress = 0.0;
 		var colorClassIndex = '';
 		$.each(data.feed.entry, function(index, row) {
-			percentage = row.gsx$progress.$t.replace('%','');
-			colorClassIndex = Math.max(0, Math.floor((30 * percentage) / 100) - 1);
-			dataRows[index] = { project: row.gsx$project.$t, details: prcgProgress2Link(1, 2), progressValue: row.gsx$progress.$t, progress: getProgressBar(percentage, colorClass[colorClassIndex]), average: row.gsx$dayaveragechange.$t, daysToCompletion: row.gsx$estimateddaystocompletion.$t, daysToCompletionNice: row.gsx$estimatedcompletion.$t, completionDate: row.gsx$estimatedcompletiondate.$t };
+			project = row.gsx$project.$t;
+			progress = row.gsx$progress.$t.replace('%','');
+			colorClassIndex = Math.max(0, Math.floor((30 * progress) / 100) - 1);
+			dataRows[index] = { projectVal: project; project: projectDetailsLink(project, 2), progressVal: progress, progress: getProgressBar(progress, colorClass[colorClassIndex]), average: row.gsx$dayaveragechange.$t, daysToCompletionVal: row.gsx$estimateddaystocompletion.$t, daysToCompletion: row.gsx$estimatedcompletion.$t, completionDate: row.gsx$estimatedcompletiondate.$t };
 		});
 		$('#projectSummaryTable').bootstrapTable({data: dataRows, formatNoMatches: function () {return 'No data found.';}});
 		$('#projectSummaryTable').show();
