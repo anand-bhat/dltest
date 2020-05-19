@@ -1,0 +1,76 @@
+---
+layout: page
+tagline: WU Credit Checker
+tagline_min: WUCreditChecker
+---
+<div>
+	This page lets you check if your Folding@home Work Unit (FAH WU) has been credited. <a id="togglePageDescription" href="#">Show instructions:</a>
+	<div id="pageDescription" class="collapse">
+		<br>Copy the line from the FAH log that has the Project Id, Run, Clone and Gen (PRCG) numbers, paste that into the form and click "Check". Alternatively, enter the Project Id, Run, Clone and Gen (PRCG) numbers and click "Check".<br><br>
+		Note: The line from the log should look like this:
+		<pre>12:59:59:WU01:FS01:Sending unit results: id:01 state:SEND error:NO_ERROR project:12345 run:0 clone:1 gen:2 core:0x22 unit:0x000000000000000000012345</pre>
+	</div>
+</div>
+<hr>
+<div>
+	<form class="form-horizontal" >
+		<div class="row form-group">
+			<div class="col">
+				<!-- Line from log containg PRCG -->
+				<label class="col-md-4 control-label" for="logLine">Line from FAH log</label>
+				<input id="logLine" name="logLine" type="text" class="form-control input-md">
+			</div>
+		</div>
+		<div class="row form-group justify-content-md-center">
+			<div class="col-md-auto">
+				<!-- Buttons -->
+				<button id="fetchCredit" name="fetchCredit" class="btn btn-primary">Check</button>
+				<button id="fetchCreditReset" name="fetchCreditReset" class="btn btn-danger" type="reset">Reset</button>
+			</div>
+		</div>
+		<div class="row form-group">
+			<div class="col">
+				<!-- Project Id input -->
+				<label class="col-md-4 control-label" for="projectId">Project</label>
+				<input id="projectId" name="projectId" type="number" class="form-control input-md" required>
+			</div>
+			<div class="col">
+				<!-- Run input -->
+				<label class="col-md-4 control-label" for="runId">Run</label>
+				<input id="runId" name="runId" type="number" class="form-control input-md" required>
+			</div>
+			<div class="col">
+				<!-- Clone input -->
+				<label class="col-md-4 control-label" for="cloneId">Clone</label>
+				<input id="cloneId" name="cloneId" type="number" class="form-control input-md" required>
+			</div>
+			<div class="col">
+				<!-- Gen input -->
+				<label class="col-md-4 control-label" for="genId">Gen</label>
+				<input id="genId" name="genId" type="number" class="form-control input-md" required>
+			</div>
+		</div>
+	</form>
+</div>
+<hr>
+<div>
+	<!-- Display result -->
+	<div id="wuStatus">Click the "Check" button.</div>
+	<div id="wuStatusData" class="collapse">
+		<table id="wuStatusTable" class="hover order-column row-border cell-border">
+			<thead>
+				<tr>
+					<th data-field="user">User Name</th>
+					<th data-field="team">Team ID</th>
+					<th data-field="cpuid">CPU ID</th>
+					<th data-field="credit">Credits (Points)</th>
+					<th data-field="credit_time">Credit Time</th>
+					<th data-field="log_time">Log Time</th>
+					<th data-field="assign_time">Assign Time</th>
+					<th data-field="days">Days</th>
+					<th data-field="code">Code</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</div>
