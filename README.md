@@ -1,8 +1,8 @@
 
 # foldingathome
 
-[![Code Climate](https://codeclimate.com/github/anand-bhat/foldingathome/badges/gpa.svg)](https://codeclimate.com/github/anand-bhat/foldingathome)
-[![Issue Count](https://codeclimate.com/github/anand-bhat/foldingathome/badges/issue_count.svg)](https://codeclimate.com/github/anand-bhat/foldingathome)
+[![Code Climate](https://codeclimate.com/github/anand-bhat/dreamlab/badges/gpa.svg)](https://codeclimate.com/github/anand-bhat/dreamlab)
+[![Issue Count](https://codeclimate.com/github/anand-bhat/dreamlab/badges/issue_count.svg)](https://codeclimate.com/github/anand-bhat/dreamlab)
 
 Some tools and scripts for the [DreamLab](https://www.vodafone.com.au/foundation/dreamlab) app.
 
