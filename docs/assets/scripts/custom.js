@@ -42,10 +42,9 @@ function projectProgressChart(project, labels, values) {
 		type: 'line',
 		data: {
 			labels: labels,
-			datasets: [{label: project, data: values, fill: false, backgroundColor: '#9c2ca3', borderColor: '#000000'}]
+			datasets: [{label: project, data: values, fill: false, backgroundColor: '#9c2ca3', borderColor: '#9c2ca3'}]
 		},
 		options: {
-			//responsive: true, // Instruct chart js to respond nicely.
 			maintainAspectRatio: false,
 			legend: {
 				display: false,
@@ -71,7 +70,6 @@ function projectProgressChart(project, labels, values) {
 			tooltips: {
 				callbacks: {
 					label: function(tooltipItem, data) {
-						// Returned formatted tooltip
 						return project + ': ' + tooltipItem.yLabel + '%';
 					}
 				}
