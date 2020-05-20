@@ -109,7 +109,7 @@ function projects() {
 		var dates = data.feed.entry.map(function (e) {
 			return e.gsx$lastupdated.$t;
 		});
-		alert(new Date(Math.max.apply(null,dates)));
+		alert(Math.max.apply(null, dates));
 
 		//$('#projectSummaryTitle').html('Last updated at ' + dateString);
 	})
