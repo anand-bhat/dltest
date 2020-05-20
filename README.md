@@ -1,5 +1,5 @@
 
-# foldingathome
+# DreamLab
 
 [![Code Climate](https://codeclimate.com/github/anand-bhat/dreamlab/badges/gpa.svg)](https://codeclimate.com/github/anand-bhat/dreamlab)
 [![Issue Count](https://codeclimate.com/github/anand-bhat/dreamlab/badges/issue_count.svg)](https://codeclimate.com/github/anand-bhat/dreamlab)
