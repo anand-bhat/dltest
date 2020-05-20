@@ -52,7 +52,7 @@ function projectProgressChart(project, labels, values) {
 
 function projectDetailsLink(project, sheetIndex) {
 	'use strict';
-	return `<div><a href="./projectDetails?project=${sheetIndex}">${project}</a></div>`;
+	return `<div><a href="./projectDetails?projectId=${sheetIndex}&project${project}=">${project}</a></div>`;
 }
 
 function datasourceLink(sheetIndex) {
