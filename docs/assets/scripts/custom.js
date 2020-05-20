@@ -87,7 +87,7 @@ function projectProgressChart(project, labels, values) {
 				callbacks: {
 					label: function(tooltipItem, data) {
 						// Returned formatted tooltip
-						return 'Clone: ' + tooltipItem.xLabel + '; Gen: ' + tooltipItem.yLabel + ' (' + ((tooltipItem.yLabel)) + '%)';
+						return project + ': ' + tooltipItem.yLabel + '%';
 					}
 				}
 			}
