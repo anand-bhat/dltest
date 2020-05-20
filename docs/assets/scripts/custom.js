@@ -73,10 +73,10 @@ function projectProgressChart(project, labels, values) {
 					scaleLabel : {
 						display: true,
 						labelString: 'Progress (%)'
-					},
-					ticks: {
-						max: 100,
-						min: 0
+					//},
+					//ticks: {
+						//max: 100,
+						//min: 0
 					}
 				}]
 			},
