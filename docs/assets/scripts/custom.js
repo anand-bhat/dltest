@@ -41,7 +41,7 @@ function projectProgressChart(projectId, labels, values) {
 	var myChart = new Chart($('#projectDetailsChart'), {
 		type: 'line',
 		data: {
-			labels: labels
+			labels: labels,
 			datasets: [{label: 'Progress1', data: values, fill: false, borderColor: rgb(75, 192, 192), lineTension: 0.1}]
 		},
 		options:{}
