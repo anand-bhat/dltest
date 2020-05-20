@@ -108,7 +108,7 @@ function projects() {
 		var dates = data.feed.entry.map(function (e) {
 			return e.gsx$lastupdated.$t;
 		});
-		$('#projectSummaryTitle').html('Last updated at ' + dates.sort().pop());
+		$('#projectSummaryTitle').html('Last updated on ' + dates.sort().pop());
 	})
 	.fail(function(data) {
 		// The project specified in the URL does not point to a valid project or there isn't data yet
