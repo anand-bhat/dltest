@@ -105,7 +105,7 @@ function projects() {
 		var progress = 0.0;
 		var colorClassIndex = '';
 		$.each(data.feed.entry, function(index, row) {
-			progress = row.gsx$progress.$t.replace('%','');
+			progress = row.gsx$progress.$t.replace('%', '');
 			colorClassIndex = Math.max(0, Math.floor((30 * progress) / 100) - 1);
 			dataRows[index] = { projectVal: row.gsx$project.$t, project: projectDetailsLink(row.gsx$project.$t, row.gsx$sheetindex.$t), progressVal: progress, progress: getProgressBar(progress, colorClass[colorClassIndex]), daysToCompletionVal: row.gsx$estimateddaystocompletion.$t, daysToCompletion: row.gsx$estimatedcompletion.$t, completionDate: row.gsx$estimatedcompletiondate.$t, lastUpdated: row.gsx$lastupdated.$t};
 		});
@@ -115,7 +115,7 @@ function projects() {
 		var dates = data.feed.entry.map(function (e) {
 			return e.gsx$lastupdated.$t;
 		});
-		$('#projectSummaryTitle').html('Last updated on ' + dates.sort().pop());
+		$('#projectSummaryTitle').html('Last updated on ' + dates.sort().pop() + '.');
 	})
 	.fail(function(data) {
 		// The project specified in the URL does not point to a valid project or there isn't data yet
