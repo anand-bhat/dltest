@@ -42,9 +42,56 @@ function projectProgressChart(project, labels, values) {
 		type: 'line',
 		data: {
 			labels: labels,
-			datasets: [{label: project, data: values}]
+			datasets: [{label: project, data: values, fill: false}]
 		},
-		options:{}
+		options: {
+				//responsive: true, // Instruct chart js to respond nicely.
+				maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
+			//datasets : [{
+			//	line: {
+			//		showLine: true
+			//	}
+			//}],
+			//legend: {
+			//	display: false,
+			//},
+			scales: {
+				//xAxes: [{
+				//	gridLines: {
+				//		display: false,
+				//	},
+				//	scaleLabel : {
+				//		display: true,
+				//		labelString: "Clone #"
+				//	},
+				//	ticks: {
+				//		stepSize: 1,
+				//		max: maxClonesPerRun-1
+				//	}
+				//}],
+				yAxes: [{
+					//scaleLabel : {
+					//	display: true,
+					//	labelString: "Gen #"
+					//},
+					ticks: {
+						max: 100
+					}
+				}]
+			},
+			title: {
+				display: true,
+				text: 'Progress for Project: ' + project
+			},
+			tooltips: {
+				callbacks: {
+					label: function(tooltipItem, data) {
+						// Returned formatted tooltip
+						return 'Clone: ' + tooltipItem.xLabel + '; Gen: ' + tooltipItem.yLabel + ' (' + ((tooltipItem.yLabel)) + '%)';
+					}
+				}
+			}
+		}
 	});
 
 	return myChart;
