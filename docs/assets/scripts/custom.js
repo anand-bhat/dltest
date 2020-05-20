@@ -36,13 +36,13 @@ function getProgressBar(percentage, color) {
 	return `<div class="progress"><div class="progress-bar role="progressbar" style="width: ${percentage}%; background-color: ${color}" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100">${percentage}%</div></div>`;
 }
 
-function projectProgressChart(projectId, labels, data) {
+function projectProgressChart(projectId, labels, values) {
 	'use strict';
 	var myChart = new Chart($('#projectDetailsChart'), {
 		type: 'line',
 		data: {
 			labels: labels
-			datasets: [{label: 'My First Dataset', data: data, fill: false,borderColor:rgb(75, 192, 192), lineTension: 0.1}]
+			datasets: [{label: 'Progress1', data: values, fill: false, borderColor: rgb(75, 192, 192), lineTension: 0.1}]
 		},
 		options:{}
 	});
