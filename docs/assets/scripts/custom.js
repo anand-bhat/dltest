@@ -36,13 +36,13 @@ function getProgressBar(percentage, color) {
 	return `<div class="progress"><div class="progress-bar role="progressbar" style="width: ${percentage}%; background-color: ${color}" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100">${percentage}%</div></div>`;
 }
 
-function projectProgressChart(project, labels, values) {
+function projectDetailsChart(project, chartId, color, labels, values, yLabel) {
 	'use strict';
-	var myChart = new Chart($('#projectDetailsChart'), {
+	var myChart = new Chart($(chartId), {
 		type: 'line',
 		data: {
 			labels: labels,
-			datasets: [{label: project, data: values, fill: false, backgroundColor: '#9c2ca3', borderColor: '#9c2ca3'}]
+			datasets: [{label: project, data: values, fill: false, backgroundColor: color, borderColor: color}]
 		},
 		options: {
 			maintainAspectRatio: false,
@@ -59,7 +59,7 @@ function projectProgressChart(project, labels, values) {
 				yAxes: [{
 					scaleLabel : {
 						display: true,
-						labelString: 'Progress (%)'
+						labelString: yLabel
 					}
 				}]
 			},
@@ -67,13 +67,13 @@ function projectProgressChart(project, labels, values) {
 				display: true,
 				text: 'Progress for Project: ' + project
 			},
-			tooltips: {
-				callbacks: {
-					label: function(tooltipItem, data) {
-						return project + ': ' + tooltipItem.yLabel + '%';
-					}
-				}
-			}
+			//tooltips: {
+			//	callbacks: {
+			//		label: function(tooltipItem, data) {
+			//			return project + ': ' + tooltipItem.yLabel + '%';
+			//		}
+			//	}
+			//}
 		}
 	});
 
@@ -137,17 +137,22 @@ function projectDetails() {
 	//projectId = parseInt(projectId);
 	$.getJSON(datasourceLink(projectId))
 	.done(function(data) {
-		// Map JSON labels  back to values array
 		var labels = data.feed.entry.map(function (e) {
 			return e.gsx$date.$t;
 		});
 
-		// Map JSON values back to values array
-		var values = data.feed.entry.map(function (e) {
+		// Progress
+		var progress = data.feed.entry.map(function (e) {
 			return e.gsx$completed.$t.replace('%','');
 		});
 
-		projectProgressChart(project, labels, values);
+		// Users
+		var users = data.feed.entry.map(function (e) {
+			return e.gsx$totalusers.$t;
+		});
+
+		projectDetailsChart(project, '#projectDetailsProgressChart', '#9c2ca3', labels, progress, 'Progress (%)');
+		projectDetailsChart(project, '#projectDetailsUsersChart', '#9c2ca3', labels, users, 'Progress (%)');
 	})
 	.fail(function(data) {
 		// The project specified in the URL does not point to a valid project or there isn't data yet
