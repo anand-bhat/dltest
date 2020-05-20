@@ -42,7 +42,7 @@ function projectProgressChart(projectId, labels, values) {
 		type: 'line',
 		data: {
 			labels: labels,
-			datasets: [{label: 'Progress1', data: values, fill: false, borderColor: rgb(75, 192, 192), lineTension: 0.1}]
+			datasets: [{label: 'Progress1', data: values, fill: false, borderColor: '#FF0000', lineTension: 0.1}]
 		},
 		options:{}
 	});
@@ -50,9 +50,9 @@ function projectProgressChart(projectId, labels, values) {
 	return myChart;
 }
 
-function projectDetailsLink(project, run) {
+function projectDetailsLink(project, sheetIndex) {
 	'use strict';
-	return `<div><a href="./projectDetails?project=${project}">${project}</a></div>`;
+	return `<div><a href="./projectDetails?project=${sheetIndex}">${project}</a></div>`;
 }
 
 function datasourceLink(sheetIndex) {
@@ -70,7 +70,7 @@ function projects() {
 		$.each(data.feed.entry, function(index, row) {
 			progress = row.gsx$progress.$t.replace('%','');
 			colorClassIndex = Math.max(0, Math.floor((30 * progress) / 100) - 1);
-			dataRows[index] = { projectVal: row.gsx$project.$t, project: projectDetailsLink(row.gsx$sheetindex.$t), progressVal: progress, progress: getProgressBar(progress, colorClass[colorClassIndex]), average: row.gsx$dayaveragechange.$t, daysToCompletionVal: row.gsx$estimateddaystocompletion.$t, daysToCompletion: row.gsx$estimatedcompletion.$t, completionDate: row.gsx$estimatedcompletiondate.$t, sheetIndex: row.gsx$sheetindex.$t };
+			dataRows[index] = { projectVal: row.gsx$project.$t, project: projectDetailsLink(row.gsx$project.$t, row.gsx$sheetindex.$t), progressVal: progress, progress: getProgressBar(progress, colorClass[colorClassIndex]), daysToCompletionVal: row.gsx$estimateddaystocompletion.$t, daysToCompletion: row.gsx$estimatedcompletion.$t, completionDate: row.gsx$estimatedcompletiondate.$t};
 		});
 		$('#projectSummaryTable').bootstrapTable({data: dataRows, formatNoMatches: function () {return 'No data found.';}});
 		$('#projectSummaryTable').show();
