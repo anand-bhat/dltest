@@ -100,12 +100,17 @@ function projects() {
 		$.each(data.feed.entry, function(index, row) {
 			progress = row.gsx$progress.$t.replace('%','');
 			colorClassIndex = Math.max(0, Math.floor((30 * progress) / 100) - 1);
-			dataRows[index] = { projectVal: row.gsx$project.$t, project: projectDetailsLink(row.gsx$project.$t, row.gsx$sheetindex.$t), progressVal: progress, progress: getProgressBar(progress, colorClass[colorClassIndex]), daysToCompletionVal: row.gsx$estimateddaystocompletion.$t, daysToCompletion: row.gsx$estimatedcompletion.$t, completionDate: row.gsx$estimatedcompletiondate.$t};
+			dataRows[index] = { projectVal: row.gsx$project.$t, project: projectDetailsLink(row.gsx$project.$t, row.gsx$sheetindex.$t), progressVal: progress, progress: getProgressBar(progress, colorClass[colorClassIndex]), daysToCompletionVal: row.gsx$estimateddaystocompletion.$t, daysToCompletion: row.gsx$estimatedcompletion.$t, completionDate: row.gsx$estimatedcompletiondate.$t, lastUpdated: gsx$lastupdated.$t};
 		});
 		$('#projectSummaryTable').bootstrapTable({data: dataRows, formatNoMatches: function () {return 'No data found.';}});
 		$('#projectSummaryTable').show();
 
 		//var dateString = new Date(Date.parse(data.feed.updated.$t)).toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'long' });
+		var dates = data.feed.entry.map(function (e) {
+			return e.gsx$lastupdated.$t;
+		});
+		alert(new Date(Math.max.apply(null,dates));
+
 		//$('#projectSummaryTitle').html('Last updated at ' + dateString);
 	})
 	.fail(function(data) {
