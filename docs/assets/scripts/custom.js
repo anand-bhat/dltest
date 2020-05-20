@@ -137,11 +137,12 @@ function projectDetails() {
 	var project = urlParams.get('project');
 	var projectId = urlParams.get('projectId');
 	if (!Number.isInteger(parseInt(projectId))) {
-		alert('Unable to get data for Project');
+		alert('Unable to get data for project.');
 		return;
 	}
 
-	//projectId = parseInt(projectId);
+	$('#projectDetailsTitle').html('Progress and participation rates for project ' + project);
+
 	$.getJSON(datasourceLink(projectId))
 	.done(function(data) {
 		var labels = data.feed.entry.map(function (e) {
@@ -158,12 +159,13 @@ function projectDetails() {
 			return e.gsx$totalusers.$t;
 		});
 
+		// Draw charts
 		projectDetailsChart(project, 'progress', labels, progress);
 		projectDetailsChart(project, 'users', labels, users);
 	})
 	.fail(function(data) {
 		// The project specified in the URL does not point to a valid project or there isn't data yet
-		alert('Unable to get data for project');
+		alert('Unable to get data for project.');
 	})
 	.always(function(data) {
 		//alert('always');
