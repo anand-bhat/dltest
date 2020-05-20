@@ -36,13 +36,13 @@ function getProgressBar(percentage, color) {
 	return `<div class="progress"><div class="progress-bar role="progressbar" style="width: ${percentage}%; background-color: ${color}" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100">${percentage}%</div></div>`;
 }
 
-function projectProgressChart(projectId, labels, values) {
+function projectProgressChart(project, labels, values) {
 	'use strict';
 	var myChart = new Chart($('#projectDetailsChart'), {
 		type: 'line',
 		data: {
 			labels: labels,
-			datasets: [{label: 'Progress1', data: values, fill: false, borderColor: '#FF0000', lineTension: 0.1}]
+			datasets: [{label: project, data: values}]
 		},
 		options:{}
 	});
@@ -90,19 +90,19 @@ function projects() {
 function projectDetails() {
 	'use strict';
 	var urlParams = new URLSearchParams(window.location.search);
-	if (!urlParams.has('project')) {
+	if (!urlParams.has('project') || !urlParams.has('projectId')) {
 		alert('Missing project.');
 		return;
 	}
 
-	var projectId = urlParams.get('project');
+	var project = urlParams.get('project');
+	var projectId = urlParams.get('projectId');
 	if (!Number.isInteger(parseInt(projectId))) {
-		alert('Unable to get data for Project: ' + projectId);
+		alert('Unable to get data for Project');
 		return;
 	}
 
-	projectId = parseInt(projectId);
-
+	//projectId = parseInt(projectId);
 	$.getJSON(datasourceLink(projectId))
 	.done(function(data) {
 		// Map JSON labels  back to values array
@@ -115,11 +115,11 @@ function projectDetails() {
 			return e.gsx$completed.$t.replace('%','');
 		});
 
-		projectProgressChart(projectId, labels, values);
+		projectProgressChart(project, labels, values);
 	})
 	.fail(function(data) {
 		// The project specified in the URL does not point to a valid project or there isn't data yet
-		alert('Unable to get data for Project: ' + projectId);
+		alert('Unable to get data for project');
 	})
 	.always(function(data) {
 		//alert('always');
