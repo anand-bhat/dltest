@@ -42,7 +42,7 @@ function projectProgressChart(project, labels, values) {
 		type: 'line',
 		data: {
 			labels: labels,
-			datasets: [{label: project, data: values, fill: false, backgroundColor: #9c2ca3, borderColor: #ffffff}]
+			datasets: [{label: project, data: values, fill: false, backgroundColor: #9c2ca3, borderColor: #000000}]
 		},
 		options: {
 				//responsive: true, // Instruct chart js to respond nicely.
