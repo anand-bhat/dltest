@@ -44,7 +44,7 @@ function projectProgressChart(projectId, labels, data) {
 			labels: labels
 			datasets: [{label: 'My First Dataset', data: data, fill: false,borderColor:rgb(75, 192, 192), lineTension: 0.1}],
 		}
-});
+	});
 
 	return myChart;
 }
