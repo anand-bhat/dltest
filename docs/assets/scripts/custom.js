@@ -45,16 +45,16 @@ function projectProgressChart(project, labels, values) {
 			datasets: [{label: project, data: values, fill: false, backgroundColor: #9c2ca3, borderColor: #000000}]
 		},
 		options: {
-				//responsive: true, // Instruct chart js to respond nicely.
-				maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
+			//responsive: true, // Instruct chart js to respond nicely.
+			maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
 			//datasets : [{
 			//	line: {
 			//		showLine: true
 			//	}
 			//}],
-			//legend: {
-			//	display: false,
-			//},
+			legend: {
+				display: false,
+			},
 			scales: {
 				xAxes: [{
 				//	gridLines: {
