@@ -38,7 +38,7 @@ function getProgressBar(percentage, color) {
 
 function projectDetailsChart(project, chartId, color, labels, values, yLabel) {
 	'use strict';
-	var myChart = new Chart($(chartId), {
+	var myChart = new Chart($('#' + chartId), {
 		type: 'line',
 		data: {
 			labels: labels,
@@ -151,8 +151,8 @@ function projectDetails() {
 			return e.gsx$totalusers.$t;
 		});
 
-		projectDetailsChart(project, '#projectDetailsProgressChart', '#9c2ca3', labels, progress, 'Progress (%)');
-		projectDetailsChart(project, '#projectDetailsUsersChart', '#9c2ca3', labels, users, 'Progress (%)');
+		projectDetailsChart(project, 'projectDetailsProgressChart', '#9c2ca3', labels, progress, 'Progress (%)');
+		projectDetailsChart(project, 'projectDetailsUsersChart', '#9c2ca3', labels, users, 'Progress (%)');
 	})
 	.fail(function(data) {
 		// The project specified in the URL does not point to a valid project or there isn't data yet
