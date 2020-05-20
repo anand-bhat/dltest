@@ -36,8 +36,15 @@ function getProgressBar(percentage, color) {
 	return `<div class="progress"><div class="progress-bar role="progressbar" style="width: ${percentage}%; background-color: ${color}" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100">${percentage}%</div></div>`;
 }
 
-function projectDetailsChart(project, chartId, color, labels, values, yLabel) {
+function projectDetailsChart(project, type, labels, values) {
 	'use strict';
+
+	var color = type === 'progress' ? '#9c2ca3' : '#ffa500';
+	var chartId = type === 'progress' ? 'projectDetailsProgressChart' : 'projectDetailsUsersChart';
+	var yLabel = type === 'progress' ? 'Progress (%)' : 'Number of participants';
+	var title = type === 'progress' ? 'Progress for Project: ' : 'Number of participants for Project: ';
+	var tooltipSuffix = type === 'progress' ? '%' : '';
+
 	var myChart = new Chart($('#' + chartId), {
 		type: 'line',
 		data: {
@@ -65,15 +72,15 @@ function projectDetailsChart(project, chartId, color, labels, values, yLabel) {
 			},
 			title: {
 				display: true,
-				text: 'Progress for Project: ' + project
+				text: title + project
 			},
-			//tooltips: {
-			//	callbacks: {
-			//		label: function(tooltipItem, data) {
-			//			return project + ': ' + tooltipItem.yLabel + '%';
-			//		}
-			//	}
-			//}
+			tooltips: {
+				callbacks: {
+					label: function(tooltipItem, data) {
+						return project + ': ' + tooltipItem.yLabel + tooltipSuffix;
+					}
+				}
+			}
 		}
 	});
 
@@ -151,8 +158,8 @@ function projectDetails() {
 			return e.gsx$totalusers.$t;
 		});
 
-		projectDetailsChart(project, 'projectDetailsProgressChart', '#9c2ca3', labels, progress, 'Progress (%)');
-		projectDetailsChart(project, 'projectDetailsUsersChart', '#9c2ca3', labels, users, 'Progress (%)');
+		projectDetailsChart(project, 'progress', labels, progress);
+		projectDetailsChart(project, 'users', labels, users);
 	})
 	.fail(function(data) {
 		// The project specified in the URL does not point to a valid project or there isn't data yet
