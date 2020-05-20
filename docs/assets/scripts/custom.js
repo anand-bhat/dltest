@@ -105,13 +105,10 @@ function projects() {
 		$('#projectSummaryTable').bootstrapTable({data: dataRows, formatNoMatches: function () {return 'No data found.';}});
 		$('#projectSummaryTable').show();
 
-		//var dateString = new Date(Date.parse(data.feed.updated.$t)).toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'long' });
 		var dates = data.feed.entry.map(function (e) {
 			return e.gsx$lastupdated.$t;
 		});
-		alert(dates.sort().pop());
-
-		//$('#projectSummaryTitle').html('Last updated at ' + dateString);
+		$('#projectSummaryTitle').html('Last updated at ' + dates.sort().pop());
 	})
 	.fail(function(data) {
 		// The project specified in the URL does not point to a valid project or there isn't data yet
