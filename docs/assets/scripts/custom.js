@@ -104,27 +104,17 @@ function projectDetails() {
 
 	$.getJSON(datasourceLink(projectId))
 	.done(function(data) {
-		var dataSeries = [];
-		var dataRows = [];
-		var percentage = 0.0;
-		var colorClassIndex = '';
-  // Map JSON labels  back to values array
-  var labels = data.feed.entry.map(function (e) {
-    return e.gsx$date.$t;
-  });
-      
-  // Map JSON values back to values array
-  var values = data.feed.entry.map(function (e) {
-    return e.gsx$completed.$t.replace('%','');
-  });
+		// Map JSON labels  back to values array
+		var labels = data.feed.entry.map(function (e) {
+			return e.gsx$date.$t;
+		});
+
+		// Map JSON values back to values array
+		var values = data.feed.entry.map(function (e) {
+			return e.gsx$completed.$t.replace('%','');
+		});
 
 		projectProgressChart(projectId, labels, values);
-		//$('#prcg2Table').bootstrapTable({data: dataRows, formatNoMatches: function () {return 'No data found.';}});
-		//var totalGensForRun = data.maxClonesPerRun * data.maxGensPerClone;
-		//colorClassIndex = Math.max(0, Math.floor((30 * totalGensCompleted) / totalGensForRun) - 1);
-		//percentage = Math.round((((100 * totalGensCompleted) / totalGensForRun) + Number.EPSILON) * 100) / 100;
-		//$('#prcg2ProgressBar').html(getProgressBar(percentage, colorClass[colorClassIndex]));
-		//$('#prcg2Table').show();
 	})
 	.fail(function(data) {
 		// The project specified in the URL does not point to a valid project or there isn't data yet
