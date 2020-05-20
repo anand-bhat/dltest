@@ -174,7 +174,7 @@ function projectDetails() {
 $(document).ready(function () {
 	'use strict';
 	// All projects summary
-	var page = window.location.pathname.split("/").pop();
+	var page = window.location.pathname.split('/').pop();
 	if (page === 'projects') {
 		projects();
 	}
