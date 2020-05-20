@@ -141,8 +141,6 @@ function projectDetails() {
 		return;
 	}
 
-	$('#projectDetailsTitle').html('Progress and participation rates for project ' + project);
-
 	$.getJSON(datasourceLink(projectId))
 	.done(function(data) {
 		var labels = data.feed.entry.map(function (e) {
@@ -162,6 +160,7 @@ function projectDetails() {
 		// Draw charts
 		projectDetailsChart(project, 'progress', labels, progress);
 		projectDetailsChart(project, 'users', labels, users);
+		$('#projectDetailsTitle').html('Progress and participation rates for project ' + project);
 	})
 	.fail(function(data) {
 		// The project specified in the URL does not point to a valid project or there isn't data yet
