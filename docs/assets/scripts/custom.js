@@ -56,26 +56,27 @@ function projectProgressChart(project, labels, values) {
 			//	display: false,
 			//},
 			scales: {
-				//xAxes: [{
+				xAxes: [{
 				//	gridLines: {
 				//		display: false,
 				//	},
-				//	scaleLabel : {
-				//		display: true,
-				//		labelString: "Clone #"
-				//	},
+					scaleLabel : {
+						display: true,
+						labelString: "Date"
+					},
 				//	ticks: {
 				//		stepSize: 1,
 				//		max: maxClonesPerRun-1
 				//	}
-				//}],
+				}],
 				yAxes: [{
-					//scaleLabel : {
-					//	display: true,
-					//	labelString: "Gen #"
-					//},
+					scaleLabel : {
+						display: true,
+						labelString: 'Progress (%)'
+					},
 					ticks: {
-						max: 100
+						max: 100,
+						min: 0
 					}
 				}]
 			},
