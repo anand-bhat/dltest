@@ -81,7 +81,7 @@ function projectDetailsChart(project, type, labels, values1, values2) {
 					}
 				}],
 				yAxes: [{
-					id: 'yAxis1'
+					id: 'yAxis1',
 					position: 'left',
 					scaleLabel : {
 						display: true,
@@ -89,7 +89,7 @@ function projectDetailsChart(project, type, labels, values1, values2) {
 					}
 				},
 				{
-					id: 'yAxis2'
+					id: 'yAxis2',
 					position: 'right',
 					scaleLabel : {
 						display: true,
