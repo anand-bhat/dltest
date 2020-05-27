@@ -62,8 +62,8 @@ function projectDetailsChart(project, type, labels, values1, values2) {
 					label: yLabel2,
 					data: values2,
 					fill: false,
-					backgroundColor: window.chartColors.red,
-					borderColor: window.chartColors.red,
+					backgroundColor: '#ff6384',
+					borderColor: '#ff6384',
 					yAxisID: 'yAxis2'
 				}
 			]
