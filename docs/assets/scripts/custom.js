@@ -41,7 +41,7 @@ function projectDetailsChart(project, type, labels, values1, values2) {
 
 	var color = type === 'progress' ? '#9c2ca3' : '#ffa500';
 	var chartId = type === 'progress' ? 'projectDetailsProgressChart' : 'projectDetailsUsersChart';
-	var yLabel1 = type === 'progress' ? 'Progress (%)' : 'Number of participants';
+	var yLabel1 = type === 'progress' ? 'Overall Progress (%)' : 'Total number of participants';
 	var yLabel2 = type === 'progress' ? 'Increase in progress (%)' : 'Increase in number of participants';
 	var title = type === 'progress' ? 'Progress for Project: ' : 'Number of participants for Project: ';
 	var tooltipSuffix = type === 'progress' ? '%' : '';
