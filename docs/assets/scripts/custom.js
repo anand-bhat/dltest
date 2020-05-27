@@ -130,6 +130,7 @@ function projects() {
 	.done(function(data) {
 		var dataRows = [];
 		var progress = 0.0;
+		var weeklyprogress = '';
 		var colorClassIndex = '';
 		$.each(data.feed.entry, function(index, row) {
 			progress = row.gsx$progress.$t.replace('%', '');
