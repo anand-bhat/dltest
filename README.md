@@ -1,12 +1,12 @@
 
 # DreamLab
 
-[![Code Climate](https://codeclimate.com/github/anand-bhat/dreamlab/badges/gpa.svg)](https://codeclimate.com/github/anand-bhat/dreamlab)
-[![Issue Count](https://codeclimate.com/github/anand-bhat/dreamlab/badges/issue_count.svg)](https://codeclimate.com/github/anand-bhat/dreamlab)
+[![Code Climate](https://codeclimate.com/github/anand-bhat/dltest/badges/gpa.svg)](https://codeclimate.com/github/anand-bhat/dltest)
+[![Issue Count](https://codeclimate.com/github/anand-bhat/dltest/badges/issue_count.svg)](https://codeclimate.com/github/anand-bhat/dltest)
 
 Some tools and scripts for the [DreamLab](https://www.vodafone.com.au/foundation/dreamlab) app.
 
-The project site is available at <https://anand-bhat.github.io/dreamlab/>.
+The project site is available at <https://anand-bhat.github.io/dltest/>.
 The code (and content) for the site rests within the `/docs` folder.
 
 ## Components used for website
