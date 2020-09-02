@@ -191,8 +191,8 @@ function projectDetails() {
       const changeInUsers = data.feed.entry.map((e) => e.gsx$changeinusers.$t);
 
       // Draw charts
-      projectDetailsChart(project, 'progress', labels, progress, changeInProgress);
-      projectDetailsChart(project, 'users', labels, users, changeInUsers);
+      projectDetailsChart(project, 'progress', labels.slice(-45), progress.slice(-45), changeInProgress.slice(-45));
+      projectDetailsChart(project, 'users', labels.slice(-45), users.slice(-45), changeInUsers.slice(-45));
       $('#projectDetailsTitle').html(`Progress and participation rates for project ${project}.`);
     })
     .fail(() => {
