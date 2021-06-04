@@ -185,7 +185,7 @@ function projectDetails() {
     .done((data) => {
       const labels = data.feed.entry.map((e) => e.gsx$date.$t);
       alert(labels.length);
-      alert(min(days, labels.length);
+      alert(min(days, labels.length));
 
       // Progress
       const progress = data.feed.entry.map((e) => e.gsx$completed.$t.replace('%', ''));
