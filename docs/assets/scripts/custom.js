@@ -175,9 +175,17 @@ function projectDetails() {
     return;
   }
 
+  const days = urlParams.get('days');
+  if (!Number.isInteger(parseInt(days, 10))) {
+    alert('Non numeric value for days. Using default (45)');
+    days = 45;
+  }
+
   $.getJSON(datasourceLink(projectId))
     .done((data) => {
       const labels = data.feed.entry.map((e) => e.gsx$date.$t);
+      alert(labels.length);
+      alert(min(days, labels.length);
 
       // Progress
       const progress = data.feed.entry.map((e) => e.gsx$completed.$t.replace('%', ''));
