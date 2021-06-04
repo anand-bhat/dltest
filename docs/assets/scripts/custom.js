@@ -187,7 +187,7 @@ function projectDetails() {
   $.getJSON(datasourceLink(projectId))
     .done((data) => {
       const labels = data.feed.entry.map((e) => e.gsx$date.$t);
-      days = Math.min(Math.max(1, days), labels.length));
+      days = Math.min(Math.max(1, days), labels.length);
 
       // Progress
       const progress = data.feed.entry.map((e) => e.gsx$completed.$t.replace('%', ''));
