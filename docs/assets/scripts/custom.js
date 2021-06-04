@@ -175,7 +175,10 @@ function projectDetails() {
     return;
   }
 
-  const days = urlParams.get('days');
+  let days = urlParams.get('days');
+  if (!days) {
+    days = 45;
+  }
   if (!Number.isInteger(parseInt(days, 10))) {
     alert('Non numeric value for days. Using default (45)');
     days = 45;
@@ -186,6 +189,7 @@ function projectDetails() {
       const labels = data.feed.entry.map((e) => e.gsx$date.$t);
       alert(labels.length);
       alert(min(days, labels.length));
+      alert(min(min(1, days), labels.length));
 
       // Progress
       const progress = data.feed.entry.map((e) => e.gsx$completed.$t.replace('%', ''));
