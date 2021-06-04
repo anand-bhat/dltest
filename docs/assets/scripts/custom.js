@@ -187,9 +187,7 @@ function projectDetails() {
   $.getJSON(datasourceLink(projectId))
     .done((data) => {
       const labels = data.feed.entry.map((e) => e.gsx$date.$t);
-      alert(labels.length);
-      alert(Math.min(days, labels.length));
-      alert(Math.min(Math.min(1, days), labels.length));
+      days = Math.min(Math.max(1, days), labels.length));
 
       // Progress
       const progress = data.feed.entry.map((e) => e.gsx$completed.$t.replace('%', ''));
@@ -204,8 +202,8 @@ function projectDetails() {
       const changeInUsers = data.feed.entry.map((e) => e.gsx$changeinusers.$t);
 
       // Draw charts
-      projectDetailsChart(project, 'progress', labels.slice(-45), progress.slice(-45), changeInProgress.slice(-45));
-      projectDetailsChart(project, 'users', labels.slice(-45), users.slice(-45), changeInUsers.slice(-45));
+      projectDetailsChart(project, 'progress', labels.slice(-days), progress.slice(-days), changeInProgress.slice(-days));
+      projectDetailsChart(project, 'users', labels.slice(-days), users.slice(-days), changeInUsers.slice(-days));
       $('#projectDetailsTitle').html(`Progress and participation rates for project ${project}.`);
     })
     .fail(() => {
