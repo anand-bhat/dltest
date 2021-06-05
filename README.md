@@ -15,6 +15,7 @@ The code (and content) for the site rests within the `/docs` folder.
 | ----------- | ---- | ----------- |
 | jQuery | 3.6.0 | https://jquery.com |
 | Bootstrap | 5.0.1 | https://getbootstrap.com |
+| boostrap-dark-5 | 1.0.1 | https://vinorodrigues.github.io/bootstrap-dark-5 |
 | Bootstrap Table | 1.18.3 | https://bootstrap-table.com |
 | Chart.js | 2.9.4 | https://www.chartjs.org |
 
